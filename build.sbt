@@ -1,18 +1,52 @@
-val scala3Version = "3.3.1"
-
 lazy val root = project
   .in(file("."))
   .settings(
     name := "Akka Todo API",
     version := "0.1.0",
-    scalaVersion := scala3Version,
+    scalaVersion := "3.3.1",
+
+    Compile / unmanagedResourceDirectories += baseDirectory.value / "/etc/config",
+
     libraryDependencies ++= Seq(
-      "com.github.nscala-time" %% "nscala-time" % "2.32.0",
-      "com.typesafe.akka" %% "akka-http" % "10.5.0",
-      "com.typesafe.akka" %% "akka-actor" % "2.8.0",
-      "com.typesafe.akka" %% "akka-http-testkit" % "10.5.0" % Test,
-      "com.typesafe.akka" %% "akka-testkit" % "2.8.0" % Test,
-      "org.scalameta" %% "munit" % "0.7.29" % Test,
+      // Production
+      "com.github.nscala-time"  %% "nscala-time"        % "2.32.0",
+
+      "com.typesafe.akka"       %% "akka-http"          % "10.5.0",
+      "com.typesafe.akka"       %% "akka-stream"        % "2.8.0",
+      "com.typesafe.akka"       %% "akka-actor-typed"   % "2.8.0",
+      "com.typesafe.akka"       %% "akka-slf4j"         % "2.8.0",
+
+      "ch.qos.logback"          % "logback-classic"     % "1.4.7",
+
+      // Test
+      "org.scalatest"     %% "scalatest"          % "3.2.15"  % Test,
+      "com.typesafe.akka" %% "akka-http-testkit"  % "10.5.0"  % Test,
+      "com.typesafe.akka" %% "akka-testkit"       % "2.8.0"   % Test
+    ),
+
+    // Compiler options
+    scalacOptions ++= Seq(
+      "-deprecation",         // Warnings deprecation
+      "-feature",             // Advise features
+      "-unchecked",           // More warnings. Strict
+      "-Xlint",               // More warnings when compiling
+      "-Ywarn-dead-code",
+      "-Ywarn-unused",
+      "-Ywarn-unused-import",
+      "-Xcheckinit"           // Check against early initialization
+    ),
+
+    Compile / run / scalacOptions -= "-Xcheckinit", // Remove it in production because it's expensive
+
+    javaOptions += "-Duser.timezone=UTC",
+
+    // Test options
+    Test / parallelExecution := false,
+    Test / testForkedParallel := false,
+    Test / fork := true,
+    Test / testOptions ++= Seq(
+      Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports"),  // Save test reports
+      Tests.Argument("-oDF")                                                  // Show full stack traces and time spent in each test
     )
   )
 
