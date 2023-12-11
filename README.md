@@ -2,7 +2,7 @@
 
 ### Introduction
 
-This is a example project showing up how could you implement a HTTP API with Scala3. It's based on the CodelyTV Pro course on Scala HTTP API (that project is made with Scala 2).
+This is a example project showing up how could you implement a HTTP API with Scala3. It's based on the CodelyTV Pro course on Scala HTTP API written in Scala 2.
 
 Libraries used:
 - Akka HTTP ([link](https://doc.akka.io/docs/akka-http/current/index.html))
