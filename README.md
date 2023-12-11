@@ -1,8 +1,13 @@
-## sbt project compiled with Scala 3
+## Scala HTTP API
 
-### Usage
+### Introduction
 
-This is a normal sbt project. You can compile code with `sbt compile`, run it with `sbt run`, and `sbt console` will start a Scala 3 REPL.
+This is a example project showing up how could you implement a HTTP API with Scala3. It's based on the CodelyTV Pro course on Scala HTTP API (that project is made with Scala 2).
 
-For more information on the sbt-dotty plugin, see the
-[scala3-example-project](https://github.com/scala/scala3-example-project/blob/main/README.md).
+Libraries used:
+- Akka HTTP ([link](https://doc.akka.io/docs/akka-http/current/index.html))
+- Akka HTTP testkit ([link](https://doc.akka.io/docs/akka-http/current/routing-dsl/testkit.html))
+
+### Sbt
+
+This is a normal sbt project. You can compile code with `sbt compile`, run it with `sbt run`
